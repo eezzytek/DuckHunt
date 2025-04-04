@@ -15,6 +15,6 @@ Duck Hunt is a classic shooting game implemented in Python using the Pygame libr
 
 ## Installation
 1. Clone the repository:
-   ```git clone https://github.com/your_username/duck-hunt.git```
+   `git clone https://github.com/your_username/duck-hunt.git`
 2. Install Pygame:
    ```pip install pygame```
