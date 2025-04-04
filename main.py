@@ -38,3 +38,15 @@ class GameState(Enum):
     GAME_OVER = 5
     SHOW_GAME = 6
 
+class Game:
+    def __init__(self):
+        self.state = GameState.ENTRY
+
+        # Game elements
+        self.font = pygame.font.Font(FONT_PATH, 128)
+        self.subfont = pygame.font.Font(FONT_PATH, 96)
+        self.bgs = self.load_images(BG_PATH, 3)
+        self.banners = self.load_images(BANNER_PATH, 3)
+        self.guns = self.load_images(GUN_PATH, 3, scale=(100, 100))
+        self.targets = self.load_images(TARGET_PATH, 3, scale=(100, 100))
+        self.sounds = self.load_sounds()
