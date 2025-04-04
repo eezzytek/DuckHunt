@@ -127,3 +127,26 @@ from enum import Enum  class Game: 	 # Saving scores in a file
         if pygame.Rect((524, 605), (317, 113)).collidepoint(mouse_pos) and clicks[0]:
             self.state = GameState.LEVEL_CHOOSE
             self.sounds["click"].play()
+
+# Drawing levels with an option to choose one
+    def draw_levels(self, screen):
+        level_pics = [os.path.join(MENU_PATH, f'level{i}.png') for i in range(1, 4)]
+        screen.blit(pygame.image.load(level_pics[self.level - 1]), (0, 0))
+        mouse_pos = pygame.mouse.get_pos()
+        clicks = pygame.mouse.get_pressed()
+        if pygame.Rect((1241, 334), (50, 100)).collidepoint(mouse_pos) and clicks[0]:
+            self.level = 1 if self.level == 3 else self.level + 1
+            self.sounds["click"].play()
+        if pygame.Rect((75, 334), (50, 100)).collidepoint(mouse_pos) and clicks[0]:
+            self.level = 3 if self.level == 1 else self.level - 1
+            self.sounds["click"].play()
+        if pygame.Rect((1124, 25), (150, 100)).collidepoint(mouse_pos) and clicks[0]:
+            self.state = GameState.SHOW_GAME
+            self.total_shots = 0
+            self.score = 0
+            self.start_time = time.time()
+            self.paused_duration = 0
+            self.sounds["click"].play()
+        if pygame.Rect((93, 48), (199, 54)).collidepoint(mouse_pos) and clicks[0]:
+            self.state = GameState.ENTRY
+            self.sounds["click"].play()
