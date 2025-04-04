@@ -19,3 +19,13 @@ RESULTS_FILE = 'scores.txt'
 COLORS = ['#F6FEAA', '#C7DFC5', '#C1DBE3']
 SPEED_MULTIPLIER = args.speed
 
+# File paths
+ASSETS_PATH = 'assets/'
+FONT_PATH = os.path.join(ASSETS_PATH, 'font/Anton-Regular.ttf')
+BG_PATH = os.path.join(ASSETS_PATH, 'bgs/')
+BANNER_PATH = os.path.join(ASSETS_PATH, 'banners/')
+GUN_PATH = os.path.join(ASSETS_PATH, 'guns/')
+TARGET_PATH = os.path.join(ASSETS_PATH, 'targets/')
+MENU_PATH = os.path.join(ASSETS_PATH, 'menus/')
+MUSIC_PATH = os.path.join(ASSETS_PATH, 'music/')
+
