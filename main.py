@@ -29,3 +29,12 @@ TARGET_PATH = os.path.join(ASSETS_PATH, 'targets/')
 MENU_PATH = os.path.join(ASSETS_PATH, 'menus/')
 MUSIC_PATH = os.path.join(ASSETS_PATH, 'music/')
 
+# Game states
+class GameState(Enum):
+    ENTRY = 1
+    LEVEL_CHOOSE = 2
+    PAUSE = 3
+    SCOREBOARD = 4
+    GAME_OVER = 5
+    SHOW_GAME = 6
+
