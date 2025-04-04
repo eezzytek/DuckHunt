@@ -83,3 +83,16 @@ class Game:
             sound.set_volume(0.5)
         return sounds
 
+    # Loading scores from a file
+    def load_scores(self):
+        scores = {i: {"score": 0, "shots": 0} for i in range(1, 4)}
+        if not os.path.exists(RESULTS_FILE):
+            return scores
+        try:
+            with open(RESULTS_FILE, "r") as f:
+                for line in f:
+                    level, score, shots = map(int, line.strip().split())
+                    scores[level] = {"score": score, "shots": shots}
+        except Exception as e:
+            print(f"Error loading scores: {e}")
+        return scores
