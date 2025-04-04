@@ -96,3 +96,62 @@ class Game:
         except Exception as e:
             print(f"Error loading scores: {e}")
         return scores
+
+# Main game loop
+def main():
+    pygame.init()
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    timer = pygame.time.Clock()
+    game = Game()
+
+    pygame.mixer.init()
+    pygame.mixer.music.load(os.path.join(MUSIC_PATH, 'bg.mp3'))
+    pygame.mixer.music.set_volume(0.1)
+    pygame.mixer.music.play(-1)
+
+    while True:
+        timer.tick(FPS)
+        screen.fill('black')
+        screen.blit(game.bgs[game.level - 1], (0, 0))
+        screen.blit(game.banners[game.level - 1], (0, HEIGHT - 175))
+
+        if game.state == GameState.ENTRY:
+            game.draw_entry(screen)
+        elif game.state == GameState.LEVEL_CHOOSE:
+            game.draw_levels(screen)
+        elif game.state == GameState.PAUSE:
+            game.draw_pause(screen)
+        elif game.state == GameState.SCOREBOARD:
+            game.draw_scoreboard(screen)
+        elif game.state == GameState.GAME_OVER:
+            game.draw_gameover(screen)
+        elif game.state == GameState.SHOW_GAME:
+            if time.time() - game.target_spawn_time > game.next_spawn_time:
+                game.spawn_targets()
+            game.draw_gun(screen)
+            game.draw_targets(screen)
+            game.draw_score(screen)
+            game.manage_game(screen)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                if game.state == GameState.SHOW_GAME and (0 < mouse_pos[0] < WIDTH) and (0 < mouse_pos[1] < HEIGHT - 175):
+                    game.total_shots += 1
+                if game.target_position and pygame.Rect(game.target_position[0][0], game.target_position[0][1], 100, 100).collidepoint(event.pos):
+                    game.score += 1
+                    game.spawn_targets()
+                    if game.level == 1:
+                        game.sounds["shot1"].play()
+                    elif game.level == 2:
+                        game.sounds["shot2"].play()
+                    else:
+                        game.sounds["shot3"].play()
+
+        pygame.display.flip()
+
+if __name__ == "__main__":
+    main()
