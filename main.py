@@ -70,3 +70,16 @@ class Game:
             images = [pygame.transform.scale(image, scale) for image in images]
         return images
 
+    # Loading sounds
+    def load_sounds(self):
+        sounds = {
+            "click": pygame.mixer.Sound(os.path.join(MUSIC_PATH, 'click.mp3')),
+            "shot1": pygame.mixer.Sound(os.path.join(MUSIC_PATH, 'level1.mp3')),
+            "shot2": pygame.mixer.Sound(os.path.join(MUSIC_PATH, 'level2.mp3')),
+            "shot3": pygame.mixer.Sound(os.path.join(MUSIC_PATH, 'level3.mp3')),
+            "gameover": pygame.mixer.Sound(os.path.join(MUSIC_PATH, 'gameover.mp3')),
+        }
+        for sound in sounds.values():
+            sound.set_volume(0.5)
+        return sounds
+
