@@ -46,6 +46,9 @@ Made by SE-22/5 team -   [Vladyslav Husenko](https://github.com/eezzytek), [Artu
 * **assets/**: Contains game assets (backgrounds, banners, guns, targets, music).
 * **results.txt**: Stores best scores for each level.
 
+## P.S.
+More things are to be announced!
+
 ## Contributing
 Contributions are welcome! Please fork the repository and create a pull request with your improvements.
 
