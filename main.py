@@ -54,3 +54,22 @@ from enum import Enum  class Game: 	 # Saving scores in a file
     def draw_targets(self, screen):
         for pos in self.target_position:
             screen.blit(self.targets[self.level - 1], pos)
+
+ # Game behavior - ending, pausing, restarting
+    def manage_game(self, screen):
+        remaining_time = self.draw_timer(screen)
+
+        if remaining_time == 0:
+            self.state = GameState.GAME_OVER
+            self.sounds["gameover"].play()
+
+        if pygame.Rect((1115, 651), (100, 100)).collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0]:
+            self.score = 0
+            self.start_time = time.time()
+            self.paused_duration = 0
+            self.sounds["click"].play()
+
+        if pygame.Rect((1241, 651), (100, 100)).collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0]:
+            self.state = GameState.PAUSE
+            self.pause_start_time = time.time()
+            self.sounds["click"].play()
