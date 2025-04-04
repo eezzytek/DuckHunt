@@ -62,3 +62,11 @@ class Game:
         self.paused_duration = 0
         self.pause_start_time = 0
         self.best_scores = self.load_scores()
+
+    # Loading images
+    def load_images(self, path, count, scale=None):
+        images = [pygame.image.load(f'{path}{i}.png') for i in range(1, count + 1)]
+        if scale:
+            images = [pygame.transform.scale(image, scale) for image in images]
+        return images
+
