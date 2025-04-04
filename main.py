@@ -95,3 +95,35 @@ from enum import Enum  class Game: 	 # Saving scores in a file
         if pygame.Rect((50, 40), (199, 54)).collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0]:
             self.state = GameState.ENTRY
             self.sounds["click"].play()
+
+ def draw_pause(self, screen):
+        screen.blit(pygame.image.load(os.path.join(MENU_PATH, 'pause.png')), (0, 0))
+        mouse_pos = pygame.mouse.get_pos()
+        clicks = pygame.mouse.get_pressed()
+        if pygame.Rect((524, 442), (317, 113)).collidepoint(mouse_pos) and clicks[0]:
+            self.state = GameState.SHOW_GAME
+            self.paused_duration += time.time() - self.pause_start_time
+            self.sounds["click"].play()
+        if pygame.Rect((524, 580), (317, 113)).collidepoint(mouse_pos) and clicks[0]:
+            self.state = GameState.LEVEL_CHOOSE
+            self.sounds["click"].play()
+
+# Drawing gameover screen
+    def draw_gameover(self, screen):
+        self.update_best_score()
+        screen.blit(pygame.image.load(os.path.join(MENU_PATH, 'gameover.png')), (0, 0))
+        score_text = self.font.render(f'{self.score}', True, '#C4C4C4')
+        shot_text = self.font.render(f'{self.total_shots}', True, '#C4C4C4')
+        screen.blit(score_text, (548, 220))
+        screen.blit(shot_text, (924, 220))
+        mouse_pos = pygame.mouse.get_pos()
+        clicks = pygame.mouse.get_pressed()
+        if pygame.Rect((524, 467), (317, 113)).collidepoint(mouse_pos) and clicks[0]:
+            self.state = GameState.SHOW_GAME
+            self.score = 0
+            self.total_shots = 0
+            self.start_time = time.time()
+            self.sounds["click"].play()
+        if pygame.Rect((524, 605), (317, 113)).collidepoint(mouse_pos) and clicks[0]:
+            self.state = GameState.LEVEL_CHOOSE
+            self.sounds["click"].play()
