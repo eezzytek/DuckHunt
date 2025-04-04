@@ -50,3 +50,15 @@ class Game:
         self.guns = self.load_images(GUN_PATH, 3, scale=(100, 100))
         self.targets = self.load_images(TARGET_PATH, 3, scale=(100, 100))
         self.sounds = self.load_sounds()
+
+        self.level = 1
+        self.score = 0
+        self.total_shots = 0
+        self.target_position = []
+        self.target_spawn_time = 0
+        self.next_spawn_time = 0
+        self.start_time = 0
+        self.remaining_time = 0
+        self.paused_duration = 0
+        self.pause_start_time = 0
+        self.best_scores = self.load_scores()
