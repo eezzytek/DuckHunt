@@ -38,6 +38,18 @@ from enum import Enum  class Game: 	 # Saving scores in a file
         if clicks[0]:
             pygame.draw.circle(screen, COLORS[self.level - 1], mouse_pos, 5)
 
+# Drawing score
+    def draw_score(self, screen):
+        score_text = self.font.render(f'{self.score}', True, COLORS[self.level - 1])
+        screen.blit(score_text, (402, 600))
+
+    # Drawing timer
+    def draw_timer(self, screen):
+        remaining_time = max(0, GAME_TIME - int(time.time() - self.start_time - self.paused_duration))
+        timer_text = self.font.render(f'{remaining_time}', True, COLORS[self.level - 1])
+        screen.blit(timer_text, (938, 600))
+        return remaining_time
+
     # Drawing targets
     def draw_targets(self, screen):
         for pos in self.target_position:
