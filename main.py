@@ -17,3 +17,28 @@ from enum import Enum  class Game: 	 # Saving scores in a file
              self.total_shots < self.best_scores[self.level]["shots"])):
             self.best_scores[self.level] = {"score": self.score, "shots": self.total_shots}
             self.save_scores()
+ 
+# Spawning targets in random positions
+    def spawn_targets(self):
+        spawn_intervals = [1.5, 1.0, 0.5]
+        self.target_position = [(random.randint(100, WIDTH - 100), random.randint(100, HEIGHT - 300))]
+        self.target_spawn_time = time.time()
+        self.next_spawn_time = spawn_intervals[self.level - 1] * SPEED_MULTIPLIER
+
+    # Drawing a gun and animating its movement
+    def draw_gun(self, screen):
+        mouse_pos = pygame.mouse.get_pos()
+        gun_location = (WIDTH / 2, HEIGHT - 175)
+        clicks = pygame.mouse.get_pressed()
+        slope = (mouse_pos[1] - gun_location[1]) / (mouse_pos[0] - gun_location[0]) if mouse_pos[0] != gun_location[0] else -100000
+        angle = math.degrees(math.atan(slope))
+        gun = pygame.transform.flip(self.guns[self.level - 1], mouse_pos[0] < WIDTH / 2, False)
+        rotated_gun = pygame.transform.rotate(gun, 90 - angle if mouse_pos[0] < WIDTH / 2 else 270 - angle)
+        screen.blit(rotated_gun, (WIDTH / 2 - 90 if mouse_pos[0] < WIDTH / 2 else WIDTH / 2 - 30, HEIGHT - 225))
+        if clicks[0]:
+            pygame.draw.circle(screen, COLORS[self.level - 1], mouse_pos, 5)
+
+    # Drawing targets
+    def draw_targets(self, screen):
+        for pos in self.target_position:
+            screen.blit(self.targets[self.level - 1], pos)
