@@ -73,3 +73,25 @@ from enum import Enum  class Game: 	 # Saving scores in a file
             self.state = GameState.PAUSE
             self.pause_start_time = time.time()
             self.sounds["click"].play()
+
+# Drawing entry screen
+    def draw_entry(self, screen):
+        screen.blit(pygame.image.load(os.path.join(MENU_PATH, 'entry.png')), (0, 0))
+        mouse_pos = pygame.mouse.get_pos()
+        clicks = pygame.mouse.get_pressed()
+        if pygame.Rect((974, 537), (317, 113)).collidepoint(mouse_pos) and clicks[0]:
+            self.state = GameState.LEVEL_CHOOSE
+            self.sounds["click"].play()
+        if pygame.Rect((974, 660), (317, 40)).collidepoint(mouse_pos) and clicks[0]:
+            self.state = GameState.SCOREBOARD
+            self.sounds["click"].play()
+
+# Drawing the scoreboard
+    def draw_scoreboard(self, screen):
+        screen.blit(pygame.image.load(os.path.join(MENU_PATH, 'scoreboard.png')), (0, 0))
+        for i in range(1, 4):
+            score_text = self.subfont.render(f'LEVEL {i}: SCORE: {self.best_scores[i]["score"]}, SHOTS: {self.best_scores[i]["shots"]}', True, COLORS[i - 1])
+            screen.blit(score_text, (50, 158 + (i - 1) * 145))
+        if pygame.Rect((50, 40), (199, 54)).collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0]:
+            self.state = GameState.ENTRY
+            self.sounds["click"].play()
