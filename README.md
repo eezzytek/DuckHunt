@@ -11,6 +11,9 @@ Made by SE-22/5 team -   [Vladyslav Husenko](https://github.com/eezzytek), [Artu
 * Pause Functionality: Ability to pause and resume the game.
 * Scoreboard: Displays the best scores for each level.
 
+## Diagrams
+![Activity diagram](CICD_activityD.jpg)
+
 ## Requirements:
 * Python 3.x
 * Pygame library
