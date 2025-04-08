@@ -12,7 +12,15 @@ Made by SE-22/5 team -   [Vladyslav Husenko](https://github.com/eezzytek), [Artu
 * Scoreboard: Displays the best scores for each level.
 
 ## Diagrams
+
+Activity diagram
 ![Activity diagram](CICD_activityD.jpg)
+
+Use-case diagram
+![Use-case diagram](CICD_usecaseD.jpg)
+
+Class diagram
+![Class diagram](CICD_classD.jpg)
 
 ## Requirements:
 * Python 3.x
