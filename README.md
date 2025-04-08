@@ -14,6 +14,7 @@ Made by SE-22/5 team -   [Vladyslav Husenko](https://github.com/eezzytek), [Artu
 ## Diagrams
 
 Activity diagram
+
 ![Activity diagram](CICD_activityD.jpg)
 
 Use-case diagram
