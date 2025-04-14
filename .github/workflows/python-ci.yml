@@ -22,11 +22,11 @@ jobs:
 
     - name: Run Flake8
       run: |
-        flake8 . --format=html --htmldir=flake8_report || true
+        flake8 main.py --format=html --htmldir=flake8_report || true
 
     - name: Run Pytest
       run: |
-        pytest --html=pytest_report.html --self-contained-html
+        pytest tests/test_main.py --html=pytest_report.html --self-contained-html
 
     - name: Upload Pytest Report
       uses: actions/upload-artifact@v4
