@@ -1,0 +1,41 @@
+name: Python CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run Flake8
+      run: |
+        flake8 . --format=html --htmldir=flake8_report || true
+
+    - name: Run Pytest
+      run: |
+        pytest --html=pytest_report.html --self-contained-html
+
+    - name: Upload Pytest Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: pytest-report
+        path: pytest_report.html
+
+    - name: Upload Flake8 Report
+      uses: actions/upload-artifact@v4
+      with:
+        name: flake8-report
+        path: flake8_report
