@@ -20,13 +20,16 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Set PYTHONPATH
+      run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+
     - name: Run Flake8
       run: |
-        flake8 main.py --format=html --htmldir=flake8_report || true
+        flake8 --format=html --htmldir=flake8_report || true
 
     - name: Run Pytest
       run: |
-        pytest tests/test_main.py --html=pytest_report.html --self-contained-html
+        pytest --html=pytest_report.html --self-contained-html
 
     - name: Upload Pytest Report
       uses: actions/upload-artifact@v4
